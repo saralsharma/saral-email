@@ -116,24 +116,39 @@
     
     // Use backticks (`) to preserve line breaks and spacing
     const EMAIL_BODY = `
+    To  
+Mr. Rabindra K. Mintri  
+Authorised Representative  
+Financial Creditors in a Class (Homebuyers)  
+Avalon Royal Park (GRJ Distributors & Developers Pvt. Ltd. – under CIRP)
+
+**Copy to:**  
+The Resolution Professional  
+Utkrishtha Insolvency Professionals Pvt. Ltd.  
+HBA - Avalon Royal Park  
+All CoC Members Group - Avalon Royal Park 
+
 Dear Sir,
 
 We request the inclusion of the following critical matters in the upcoming CoC meeting agenda:
 
 *** KEY AGENDA POINTS ***
 
-1. CONSTRUCTION TIMELINE
-• Please share the tower-wise completion schedule.
-• Provide updates on pending statutory approvals.
+1. TITLE 1
+• Point 1
+• Point 2
 
-2. FINANCIAL TRANSPARENCY
-• Share the latest fund utilisation report.
-• Clarify details regarding maintenance corpus transfers.
+2. TITLE 2
+• Point 1
+• Point 2
 
 We request your urgent attention to these points before the meeting notice is finalised.
 
 
-Regards`;
+Regards
+Homebuyers / Financial Creditors in a Class
+Avalon Royal Park, Bhiwadi, Rajasthan
+`;
     // ==========================================
 
     // Show a read-only preview of the draft on the page
@@ -149,7 +164,7 @@ Regards`;
             return;
         }
 
-        const signature = `\n\nRegards,\nName: ${name}\nFlat/Unit No: ${flat}\nMobile: ${phone}`;
+        const signature = `\n\nName: ${name}\nFlat/Unit No: ${flat}\nMobile: ${phone}`;
         const fullBody = EMAIL_BODY + signature;
 
         // Encode components safely for mobile email apps

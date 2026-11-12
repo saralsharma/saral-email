@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoC Agenda Email Generator</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background-color: #f4f6f8;
+            color: #1a1a1a;
+            margin: 0;
+            padding: 16px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            background: #ffffff;
+            max-width: 500px;
+            width: 100%;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        h1 {
+            font-size: 22px;
+            margin-top: 0;
+            color: #0d47a1;
+        }
+        p.instructions {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #444;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 18px;
+        }
+        label {
+            display: block;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        input {
+            width: 100%;
+            padding: 14px;
+            font-size: 18px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        input:focus {
+            border-color: #0d47a1;
+            outline: none;
+        }
+        button {
+            width: 100%;
+            padding: 16px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff;
+            background-color: #2e7d32;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:active {
+            background-color: #1b5e20;
+        }
+        .preview-box {
+            margin-top: 24px;
+            padding: 14px;
+            background-color: #f9f9f9;
+            border-left: 4px solid #0d47a1;
+            font-size: 14px;
+            color: #555;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Send CoC Agenda Email</h1>
+    <p class="instructions">Enter your details below and tap the green button. Your email app will open automatically—just tap <strong>Send</strong>.</p>
+
+    <div class="form-group">
+        <label for="buyerName">Full Name</label>
+        <input type="text" id="buyerName" placeholder="e.g. Rajesh Sharma" required>
+    </div>
+
+    <div class="form-group">
+        <label for="flatNo">Flat / Unit Number</label>
+        <input type="text" id="flatNo" placeholder="e.g. Tower B - 1204" required>
+    </div>
+
+    <div class="form-group">
+        <label for="phoneNo">Mobile Number</label>
+        <input type="tel" id="phoneNo" placeholder="e.g. 9876543210" required>
+    </div>
+
+    <button onclick="openEmailClient()">Open Email & Send</button>
+
+    <div class="preview-box" id="draftPreview"></div>
+</div>
+
+<script>
+    // ==========================================
+    // ADMIN CONFIGURATION (EDIT TEXT HERE)
+    // ==========================================
+    const TO_EMAIL = "saral.sharma@gmail.com";
+    const CC_EMAIL = "drain2001@gmail.com";
+    const EMAIL_SUBJECT = "Agenda Item for Upcoming CoC Meeting";
+    
+    // Use backticks (`) to preserve line breaks and spacing
+    const EMAIL_BODY = `
+Dear Sir,
+
+We request the inclusion of the following critical matters in the upcoming CoC meeting agenda:
+
+*** KEY AGENDA POINTS ***
+
+1. CONSTRUCTION TIMELINE
+• Please share the tower-wise completion schedule.
+• Provide updates on pending statutory approvals.
+
+2. FINANCIAL TRANSPARENCY
+• Share the latest fund utilisation report.
+• Clarify details regarding maintenance corpus transfers.
+
+We request your urgent attention to these points before the meeting notice is finalised.
+
+
+Regards`;
+    // ==========================================
+
+    // Show a read-only preview of the draft on the page
+    document.getElementById("draftPreview").innerText = "Draft Preview:\n\n" + EMAIL_BODY;
+
+    function openEmailClient() {
+        const name = document.getElementById("buyerName").value.trim();
+        const flat = document.getElementById("flatNo").value.trim();
+        const phone = document.getElementById("phoneNo").value.trim();
+
+        if (!name || !flat || !phone) {
+            alert("Please fill in your Name, Flat Number, and Mobile Number first.");
+            return;
+        }
+
+        const signature = `\n\nRegards,\nName: ${name}\nFlat/Unit No: ${flat}\nMobile: ${phone}`;
+        const fullBody = EMAIL_BODY + signature;
+
+        // Encode components safely for mobile email apps
+        const mailtoLink = `mailto:${encodeURIComponent(TO_EMAIL)}?cc=${encodeURIComponent(CC_EMAIL)}&subject=${encodeURIComponent(EMAIL_SUBJECT)}&body=${encodeURIComponent(fullBody)}`;
+
+        window.location.href = mailtoLink;
+    }
+</script>
+
+</body>
+</html>

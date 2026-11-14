@@ -122,7 +122,7 @@
     // const CC_EMAIL = "mr.omprakash1@gmail.com, all.coc.avalonroyalpark@gmail.com";
     const TO_EMAIL = "ar.cirpgrj@gmail.com";
     const CC_EMAIL = "cirp.grjdistributor@gmail.com, hbaroyalpark@gmail.com, all.coc.avalonroyalpark@gmail.com";
-    const BCC_EMAIL = "drain2001@gmail.com"
+    // const BCC_EMAIL = "drain2001@gmail.com"
     const EMAIL_SUBJECT = `Avalon Royal Park (GRJ Distributors & Developers Pvt. Ltd.) under CIRP : Notice and agenda of the 15th CoC dated 06.11.2026 and the response of the Resolution Professional dated 06.11.2026, position and questions of the class, without prejudice`;
     
     // Use backticks (`) to preserve line breaks and spacing
@@ -380,7 +380,7 @@ Avalon Royal Park, Bhiwadi, Rajasthan
         const fullBody = EMAIL_BODY + signature;
 
         // Encode components safely for mobile email apps
-        const mailtoLink = `mailto:${encodeURIComponent(TO_EMAIL)}?cc=${encodeURIComponent(CC_EMAIL)}&bcc=${encodeURIComponent(BCC_EMAIL)}&subject=${encodeURIComponent(EMAIL_SUBJECT)}&body=${encodeURIComponent(fullBody)}`;
+        const mailtoLink = `mailto:${encodeURIComponent(TO_EMAIL)}?cc=${encodeURIComponent(CC_EMAIL)}&subject=${encodeURIComponent(EMAIL_SUBJECT)}&body=${encodeURIComponent(fullBody)}`;
 
         window.location.href = mailtoLink;
     }

@@ -87,7 +87,7 @@
     <p class="instructions">Aftr reading the email in preview, enter your details below and tap the green button. Your email app will open automatically. Then just tap <strong>Send</strong>.</p>
 
     <div class="preview-box" id="draftPreview"></div>
-    
+
     <div class="form-group">
         <label for="buyerName">Full Name</label>
         <input type="text" id="buyerName" placeholder="e.g. Rajesh Sharma" required>
@@ -358,7 +358,7 @@ Avalon Royal Park, Bhiwadi, Rajasthan
     // ==========================================
 
     // Show a read-only preview of the draft on the page
-    document.getElementById("draftPreview").innerText = "Draft Preview:\n\n" + EMAIL_BODY;
+    document.getElementById("draftPreview").innerText = "Draft Preview:\n\n"+ EMAIL_SUBJECT+ "\n\n" + EMAIL_BODY;
 
     function openEmailClient() {
         const name = document.getElementById("buyerName").value.trim();

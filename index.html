@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,40 +15,47 @@
             display: flex;
             justify-content: center;
         }
+
         .container {
             background: #ffffff;
             max-width: 500px;
             width: 100%;
             padding: 24px;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
+
         h1 {
             font-size: 22px;
             margin-top: 0;
             color: #0d47a1;
             text-align: center;
         }
+
         h2 {
             font-size: 18px;
             margin-top: 0;
             color: #0d47a1;
         }
+
         p.instructions {
             font-size: 16px;
             line-height: 1.5;
             color: #444;
             margin-bottom: 20px;
         }
+
         .form-group {
             margin-bottom: 18px;
         }
+
         label {
             display: block;
             font-size: 16px;
             font-weight: 600;
             margin-bottom: 6px;
         }
+
         input {
             width: 100%;
             padding: 14px;
@@ -56,10 +64,12 @@
             border-radius: 8px;
             box-sizing: border-box;
         }
+
         input:focus {
             border-color: #0d47a1;
             outline: none;
         }
+
         button {
             width: 100%;
             padding: 16px;
@@ -72,9 +82,11 @@
             cursor: pointer;
             margin-top: 10px;
         }
+
         button:active {
             background-color: #1b5e20;
         }
+
         .preview-box {
             margin-top: 24px;
             padding: 14px;
@@ -84,49 +96,95 @@
             color: #555;
             white-space: pre-wrap;
         }
+
+        .inactive-box {
+            display: none;
+            padding: 20px;
+            background-color: #fff8e1;
+            border-left: 5px solid #f57c00;
+            border-radius: 8px;
+            font-size: 17px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        footer {
+            margin-top: 28px;
+            padding-top: 16px;
+            border-top: 1px solid #e0e0e0;
+            text-align: center;
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        footer a {
+            color: #0d47a1;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
+
 <body>
 
-<div class="container">
-    <h1>Send Email to AR</h1>
-    <p class="instructions">After reading the email in preview pane, scroll down to the end. <br>Then enter your details and tap the green button. <br>Your email app will open automatically. Then just tap <strong>Send</strong>.</p>
-    <h2>Draft Preview Pane</h2>
-    <div class="preview-box" id="draftPreview"></div>
+    <div class="container">
+        <h1 id="pageTitle">Send Email to AR</h1>
+        <!-- Shown when IS_ACTIVE is set to false -->
+        <div id="inactiveSection" class="inactive-box"></div>
 
-    <div class="form-group">
-        <label for="buyerName">Full Name</label>
-        <input type="text" id="buyerName" placeholder="e.g. Rajesh Sharma" required>
+        <!-- Shown when IS_ACTIVE is set to true -->
+        <div id="activeSection">
+            <p class="instructions">After reading the email in preview pane, scroll down to the end. <br>Then enter your
+                details and tap the green button. <br>Your email app will open automatically. Then just tap
+                <strong>Send</strong>.</p>
+            <h2>Draft Preview Pane</h2>
+            <div class="preview-box" id="draftPreview"></div>
+
+            <div class="form-group">
+                <label for="buyerName">Full Name</label>
+                <input type="text" id="buyerName" placeholder="e.g. Rajesh Sharma" required>
+            </div>
+
+            <div class="form-group">
+                <label for="flatNo">Flat / Unit Number</label>
+                <input type="text" id="flatNo" placeholder="e.g. Tower B - 1204" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phoneNo">Mobile Number</label>
+                <input type="tel" id="phoneNo" placeholder="e.g. 9876543210" required>
+            </div>
+
+            <button onclick="openEmailClient()">Open Email & Send</button>
+        </div>
+        <!-- Footer with Copyright and Inquiry Link -->
+        <footer id="pageFooter"></footer>
     </div>
 
-    <div class="form-group">
-        <label for="flatNo">Flat / Unit Number</label>
-        <input type="text" id="flatNo" placeholder="e.g. Tower B - 1204" required>
-    </div>
+    <script>
+        // ==========================================
+        // ADMIN CONFIGURATION (EDIT TEXT HERE)
+        // ==========================================
+        // Set to true when an email campaign is active, or false when no email needs to be sent
+        const IS_ACTIVE = false;
 
-    <div class="form-group">
-        <label for="phoneNo">Mobile Number</label>
-        <input type="tel" id="phoneNo" placeholder="e.g. 9876543210" required>
-    </div>
+        // Message displayed when IS_ACTIVE is false
+        const INACTIVE_MESSAGE = "There is no email to send to the AR for now from this formatting tool. Please check the WhatsApp group for updates.";
 
-    <button onclick="openEmailClient()">Open Email & Send</button>
+        // const TO_EMAIL = "saral.sharma@gmail.com";
+        // const CC_EMAIL = "mr.omprakash1@gmail.com, all.coc.avalonroyalpark@gmail.com";
+        const TO_EMAIL = "ar.cirpgrj@gmail.com";
+        const CC_EMAIL = "cirp.grjdistributor@gmail.com, hbaroyalpark@gmail.com, all.coc.avalonroyalpark@gmail.com";
+        // const BCC_EMAIL = "drain2001@gmail.com"
+        const EMAIL_SUBJECT = `Avalon Royal Park (GRJ Distributors & Developers Pvt. Ltd.) under CIRP : Notice and agenda of the 15th CoC dated 06.11.2026 and the response of the Resolution Professional dated 06.11.2026, position and questions of the class, without prejudice`;
 
-    
-</div>
-
-<script>
-    // ==========================================
-    // ADMIN CONFIGURATION (EDIT TEXT HERE)
-    // ==========================================
-    // const TO_EMAIL = "saral.sharma@gmail.com";
-    // const CC_EMAIL = "mr.omprakash1@gmail.com, all.coc.avalonroyalpark@gmail.com";
-    const TO_EMAIL = "ar.cirpgrj@gmail.com";
-    const CC_EMAIL = "cirp.grjdistributor@gmail.com, hbaroyalpark@gmail.com, all.coc.avalonroyalpark@gmail.com";
-    // const BCC_EMAIL = "drain2001@gmail.com"
-    const EMAIL_SUBJECT = `Avalon Royal Park (GRJ Distributors & Developers Pvt. Ltd.) under CIRP : Notice and agenda of the 15th CoC dated 06.11.2026 and the response of the Resolution Professional dated 06.11.2026, position and questions of the class, without prejudice`;
-    
-    // Use backticks (`) to preserve line breaks and spacing
-    const EMAIL_BODY = `
+        // Use backticks (`) to preserve line breaks and spacing
+        const EMAIL_BODY = `
 To,
 Mr. Rabindra Kumar Mintri  
 Authorised Representative  
@@ -361,30 +419,50 @@ Regards
 Homebuyers / Financial Creditors in a Class
 Avalon Royal Park, Bhiwadi, Rajasthan
 `;
-    // ==========================================
+        // ==========================================
+        // Your Copyright & Contact Details
+        const CREATOR_NAME = "Saral Sharma";
+        const ADMIN_CONTACT_EMAIL = "saral.sharma@gmail.com";
+        // ==========================================
 
-    // Show a read-only preview of the draft on the page
-    document.getElementById("draftPreview").innerText = "\nSubject: "+ EMAIL_SUBJECT+ "\n\n" + EMAIL_BODY;
+        // Populate Footer automatically
+        const currentYear = new Date().getFullYear();
+        document.getElementById("pageFooter").innerHTML = `
+        &copy; ${currentYear} ${CREATOR_NAME}. All rights reserved.<br>
+        Contact: <a href="mailto:${ADMIN_CONTACT_EMAIL}?subject=Inquiry%20regarding%20Custom%20Email%20Tool">${ADMIN_CONTACT_EMAIL}</a>`;
 
-    function openEmailClient() {
-        const name = document.getElementById("buyerName").value.trim();
-        const flat = document.getElementById("flatNo").value.trim();
-        const phone = document.getElementById("phoneNo").value.trim();
-
-        if (!name || !flat || !phone) {
-            alert("Please fill in your Name, Flat Number, and Mobile Number first.");
-            return;
+        // Check status on page load
+        if (!IS_ACTIVE) {
+            document.getElementById("activeSection").style.display = "none";
+            document.getElementById("pageTitle").innerText = "No Active Email";
+            const inactiveBox = document.getElementById("inactiveSection");
+            inactiveBox.innerText = INACTIVE_MESSAGE;
+            inactiveBox.style.display = "block";
+        } else {
+            // Show a read-only preview of the draft on the page
+            document.getElementById("draftPreview").innerText = "\nSubject: " + EMAIL_SUBJECT + "\n\n" + EMAIL_BODY;
         }
 
-        const signature = `\n\nName: ${name}\nFlat/Unit No: ${flat}\nMobile: ${phone}`;
-        const fullBody = EMAIL_BODY + signature;
+        function openEmailClient() {
+            const name = document.getElementById("buyerName").value.trim();
+            const flat = document.getElementById("flatNo").value.trim();
+            const phone = document.getElementById("phoneNo").value.trim();
 
-        // Encode components safely for mobile email apps
-        const mailtoLink = `mailto:${encodeURIComponent(TO_EMAIL)}?cc=${encodeURIComponent(CC_EMAIL)}&subject=${encodeURIComponent(EMAIL_SUBJECT)}&body=${encodeURIComponent(fullBody)}`;
+            if (!name || !flat || !phone) {
+                alert("Please fill in your Name, Flat Number, and Mobile Number first.");
+                return;
+            }
 
-        window.location.href = mailtoLink;
-    }
-</script>
+            const signature = `\n\nName: ${name}\nFlat/Unit No: ${flat}\nMobile: ${phone}`;
+            const fullBody = EMAIL_BODY + signature;
+
+            // Encode components safely for mobile email apps
+            const mailtoLink = `mailto:${encodeURIComponent(TO_EMAIL)}?cc=${encodeURIComponent(CC_EMAIL)}&subject=${encodeURIComponent(EMAIL_SUBJECT)}&body=${encodeURIComponent(fullBody)}`;
+
+            window.location.href = mailtoLink;
+        }
+    </script>
 
 </body>
+
 </html>
